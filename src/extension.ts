@@ -31,19 +31,18 @@ export function activate(context: vscode.ExtensionContext) {
         const resolvedConfig = resolveConfig(userConfig);
         const colors = flattenColors(resolvedConfig.theme.colors);
 
-        // Show colors in a QuickPick dropdown
-        const items = Object.entries(colors).map(([name, value]) => ({
-          label: name,
-          description: value,
-        }));
-        const selected = await vscode.window.showQuickPick(items, {
-          placeHolder: 'Select a Tailwind color to copy its value',
-          matchOnDescription: true,
-        });
-        if (selected) {
-          await vscode.env.clipboard.writeText(selected.description || '');
-          vscode.window.showInformationMessage(`Copied ${selected.label}: ${selected.description}`);
-        }
+        // Create and show webview
+        const panel = vscode.window.createWebviewPanel(
+          'tailwindColors',
+          'Tailwind Colors',
+          vscode.ViewColumn.One,
+          { enableScripts: true }
+        );
+
+        panel.webview.html = getWebviewContent(
+          colors,
+          vscode.window.activeColorTheme.kind
+        );
       } catch (error) {
         vscode.window.showErrorMessage(
           `Error loading Tailwind config: ${error}`
