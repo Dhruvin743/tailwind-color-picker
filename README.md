@@ -15,9 +15,7 @@ There are two bundlers esbundle and web pack to use
 
 ## Installation
 
-You can install this extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=your-publisher-name.tailwind-color-grid).
-
-Or you can install it locally by downloading the `.vsix` file and using the command palette:
+install it locally by downloading the `.vsix` file and using the command palette:
 
 1. Open the Command Palette (`Ctrl + Shift + P`).
 2. Type `Extensions: Install from VSIX...`.
